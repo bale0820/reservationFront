@@ -103,6 +103,7 @@ export default function HomePage() {
 const heroSection: React.CSSProperties = {
   display: "flex",
   flexDirection: "column",
+  justifyContent : "center",
   color: "#fff",
   padding: "auto",
   position: "relative",
