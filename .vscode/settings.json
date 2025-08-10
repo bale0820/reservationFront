@@ -1,0 +1,28 @@
+{
+    "typescript.suggest.autoImports": true,
+
+  "editor.quickSuggestions": {
+    "comments": "off",
+    "strings": "on",
+    "other": "on"
+  },
+
+"editor.colorDecorators": true,
+"editor.tokenColorCustomizations": {},
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "tailwindCSS.includeLanguages": {
+    "typescript": "javascript",
+    "typescriptreact": "javascript",
+    "javascriptreact": "javascript"
+  },
+  "tailwindCSS.colorDecorators": true,
+  "tailwindCSS.suggestions": true,
+  "tailwindCSS.validate": true,
+
+  // v4는 CSS 엔트리포인트를 전역 경로로 지정
+  "tailwindCSS.config": "D:/Source/reservationFront/tailwind.config.js"
+
+
+}

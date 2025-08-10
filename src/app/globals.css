@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+
+  font-family: Arial, sans-serif;
+  background-color: #fafafa;
+}
+
+/* .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+} */
+
+button {
+  padding: 6px 12px;
+  margin: 0 8px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  font-Size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 'background-color  0.3s ease'
+  
+}
+
+button:hover {
+  background-color: #45a049  !important;
+}
+
+
+
+
+
+/* 왼쪽 드로어 + 오버레이 기본 */
+.drawer-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 1500;
+  opacity: 0; pointer-events: none;
+  transition: opacity .2s ease;
+}
+.drawer-overlay.show {
+  opacity: 1; pointer-events: auto;
+}
+
+.drawer {
+  position: fixed; top: 0; left: 0;
+  height: 100vh; width: 280px;
+  background: #fff; color: #333;
+  z-index: 1600;
+  transform: translateX(-100%);
+  transition: transform .25s ease;
+  box-shadow: 2px 0 10px rgba(0,0,0,.15);
+  display: flex; flex-direction: column;
+}
+.drawer.show {
+  transform: translateX(0);
+}
+
+.drawer-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px; border-bottom: 1px solid #eee;
+  font-weight: 700;
+}
+
+.drawer-list {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 10px;
+}
+.drawer-item {
+  border: 0; background: #4CAF50; text-align: left;
+  padding: 12px; border-radius: 8px; cursor: pointer;
+  font-size: 15px;
+}
+/* .drawer-item:hover {
+  background: #f4f6f8;
+} */
+
+/* 모바일에서 상단 네비 단순화: 버튼 숨기기, 햄버거만 보이기 */
+@media (max-width: 768px) {
+  .hide-on-mobile { display: none !important; }
+}
+
+
+.featureCard {
+  background-color: #fff;
+  padding: 30px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  text-align: center;
+  opacity: 0;
+  transform: translateY(2rem);
+  transition-property: opacity, transform;
+  transition-duration: 0.7s;
+  transition-timing-function: ease-out;
+};
+
+.featureCard.show {
+  opacity: 1;
+  transform: translateY(0);
+};
+
+
