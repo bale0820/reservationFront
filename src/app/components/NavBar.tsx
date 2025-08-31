@@ -97,6 +97,7 @@ export default function NavBar() {
       />
 
       {/* 왼쪽 드로어 */}
+      
       <aside
         className={`drawer ${open ? "show" : ""}`}
         role="dialog"
@@ -120,6 +121,8 @@ export default function NavBar() {
           <button className="drawer-item" onClick={() => go("/upload")}>업로드</button>
           <button className="drawer-item" onClick={() => go("/results")}>결과</button>
           <button className="drawer-item" onClick={() => go("/my-reservations")}>내 예약</button>
+          <button className="drawer-item" onClick={() => go("/chat")}>GPT 채팅</button>
+          <div className="text-lg text-gray-200"><a href="">안녕</a></div>
           <hr style={{ border: 0, borderTop: "1px solid #eee", margin: "8px 0" }} />
           {isLoggedIn ? (
             <button className="drawer-item" onClick={handleLogout}>로그아웃</button>

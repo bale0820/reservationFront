@@ -46,6 +46,12 @@ export default function LoginPage() {
     }
 }
 
+ const handleNaverLogin = () => {
+    window.location.href = "http://localhost:8080/oauth2/authorization/naver";
+    alert("로그인 성공!");
+     router.push("/");
+  };
+
 
   return (
     <div style={containerStyle}>
@@ -73,6 +79,22 @@ export default function LoginPage() {
       <br />
       <button type="submit" style={buttonStyle}>로그인</button>        
       </form>
+       <div style={{ display: "flex", justifyContent: "center", marginTop: "50px" }}>
+      <button
+        onClick={handleNaverLogin}
+        style={{
+          padding: "12px 24px",
+          backgroundColor: "#03C75A",
+          color: "white",
+          borderRadius: "8px",
+          border: "none",
+          cursor: "pointer",
+          fontSize: "16px"
+        }}
+      >
+        네이버 로그인
+      </button>
+    </div>
       {error && <p style ={{color : 'red'}}>{error}</p>}
     </div>
       

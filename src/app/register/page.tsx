@@ -17,13 +17,17 @@ export default function RegisterPage() {
     try {
       const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:8080'
       const res = await axios.post(`${API_BASE}/api/register`, { email, password })
-      setMessage('회원가입 성공! 로그인 페이지로 이동합니다.')
+      if(res)
+        setMessage('회원가입 성공! 로그인 페이지로 이동합니다.')
+      else
+        setMessage('회원가입 실패.')
       setTimeout(() => router.push('/login'), 1500)
     } catch (err: unknown) {
         if (err instanceof Error) {
        console.log(err.message);
     }
     }
+
   }
 
   return (
