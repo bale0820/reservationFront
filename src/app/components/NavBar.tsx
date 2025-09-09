@@ -83,7 +83,7 @@ export default function NavBar() {
           ) : (
             <>
               <button style={navButton} onClick={() => go("/login")}>로그인</button>
-              <button style={navButton} onClick={() => go("/register")}>회원가입</button>
+              <button style={navButton} onClick={() => go("/register/step1")}>회원가입</button>
             </>
           )}
         </div>
