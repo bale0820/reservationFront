@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState} from "react";
+import { useState, useEffect} from "react";
 import { useRef } from "react";
 import axios from "axios";
 import { auth } from "../../firebase";
@@ -32,9 +32,40 @@ export default function NaverRegisterPage() {
   const phoneRef = useRef<HTMLInputElement>(null);
  
 
-  const [confirmationResult, setConfirmationResult] =
-    useState<ConfirmationResult | null>(null);
+  const [confirmationResult, setConfirmationResult] =useState<ConfirmationResult | null>(null);
   const [code, setCode] = useState("");
+   // ✅ 페이지 이동 감지
+   const [isVerified, setIsVerified] = useState(false);
+
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (!isVerified) {
+        e.preventDefault();
+        e.returnValue = "";
+      }
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    const handlePopState = () => {
+      if (!isVerified) {
+        const answer = confirm("휴대폰 미인증 시 불이익이 있을 수 있습니다. 이동하시겠습니까?");
+        if (!answer) {
+          history.pushState(null, "", location.href); // 현재 페이지 유지
+        } else {
+          router.push("/"); // 홈으로 이동
+        }
+      }
+    };
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [isVerified, router]);
+
+
+
 
   useLayoutEffect(() => {
     if (typeof window !== "undefined") {
@@ -87,6 +118,8 @@ export default function NaverRegisterPage() {
     try {
       await confirmationResult?.confirm(code);
       alert("인증 성공!");
+      setIsVerified(true);
+      handleRegister();
     } catch (error) {
       console.error(error);
       alert("인증번호가 올바르지 않습니다.");
@@ -114,8 +147,7 @@ export default function NaverRegisterPage() {
     }
   };
 
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleRegister = async () => {
     const token = localStorage.getItem("token");
     try {
       // 순차적으로 체크 → 누락된 곳으로 포커스
@@ -128,8 +160,8 @@ export default function NaverRegisterPage() {
       const API_BASE =
         process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8080";
       const res = await axios.post<ApiResponse<string>>(
-        `${API_BASE}/api/register`,
-        phone,
+        `${API_BASE}/api/registerNaver`,
+        {phone},
          {
           headers: {
             Authorization: `Bearer ${token}`,

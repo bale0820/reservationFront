@@ -3,6 +3,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 
 
@@ -12,6 +13,7 @@ export default function OAuth2SuccessPage() {
   const params = new URLSearchParams(window.location.search);
     const token = params.get("token");
     const hasPhone = params.get("hasPhone") === "true";
+    const router = useRouter();
 
   // useEffect(() => {
   //   if (token) {
@@ -31,10 +33,12 @@ export default function OAuth2SuccessPage() {
 
       if (hasPhone) {
         // 휴대폰 번호 있음 → 홈으로
-        window.location.href = "/";
+        // window.location.href = "/";
+        router.push("/");
       } else {
         // 휴대폰 번호 없음 → 추가 입력 페이지
-        window.location.href = "/";
+        // window.location.href = "/register/naverLogin";
+        router.push("/register/naverLogin");
       }
     }
   }, [token]);
