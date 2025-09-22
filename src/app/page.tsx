@@ -5,128 +5,52 @@ import { useState, useEffect } from "react";
 import "./globals.css";
 import Image from "next/image";
 import Link from "next/link";
-import axios from "axios";
 import { axiosGet } from "@/utils/axiosGet";
-
-
-interface imgData {
-  src: string;
-  alt : string;
-  position: string;
-  title: string;
-  subtitle : string;
-  link : string;
-}
+import { createObserver } from "@/hooks/createObserver";
+import { useAutoSlider } from "@/hooks/useAutoSlider";
+import { imgData } from "@/types/imgData";
+import { notices } from "@/types/notices";
+import { events } from "@/types/events";
+import { MainHeader } from "@/components/MainHeader";
 
 export default function HomePage() {
   const router = useRouter();
-  const [index, setIndex] = useState(0);
+  // const [index, setIndex] = useState(0);
   const [images, setImages] = useState<imgData[]>([]);
+  // const { index, setIndex } = useAutoSlider(images.length, 5000);
+  const [notices, setNotices] = useState<notices[]>([]);
+  const [events, setEvents] = useState<events[]>([]);
+
+  //메인 이미지 불러오기
   useEffect(() => {
-    const axiosData = async() => {
+    const axiosData = async () => {
       const res = await axiosGet<imgData[]>(`/datas/mainImgData.json`);
       setImages(res);
-    }
+    };
+    const axiosData2 = async () => {
+      const res = await axiosGet<notices[]>(`/datas/notices.json`);
+      setNotices(res);
+    };
+    const axiosData3 = async () => {
+      const res = await axiosGet<events[]>(`/datas/events.json`);
+      setEvents(res);
+    };
     axiosData();
-  },[]);
+    axiosData2();
+    axiosData3();
+  }, []);
 
+  //첫화면 등장시 애니메이션 동작 구현
   useEffect(() => {
-    const els = document.querySelectorAll<HTMLElement>(".featureCard");
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-            observer.unobserve(entry.target); // 한 번만 실행
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    els.forEach((el) => observer.observe(el));
+    const observer = createObserver(".featureCard", "show", {
+      threshold: 0.1,
+    });
     return () => observer.disconnect();
   }, []);
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setIndex((prev) => (prev + 1) % images.length);
-  //   }, 5000);
-  //   return () => clearInterval(interval);
-  // }, []);
-
   return (
     <div style={{ fontFamily: "Arial, sans-serif" }}>
-       <div style={heroSection}>
-    {images.map((img, i) => (
-      <Link key={i} href={img.link}>
-        <div
-          style={{
-            position: "absolute", // 이미지 겹치기
-            inset: 0,             // top:0, right:0, bottom:0, left:0
-            transition: "opacity 1s ease-in-out",
-            opacity: index === i ? 1 : 0,
-          }}
-        >
-          <Image
-            src={img.src}
-            alt={img.alt}
-            layout="fill"
-            style={{ objectFit: "cover", objectPosition: img.position }}
-            priority={index === i}
-            quality={100}
-          />
-
-          {/* 텍스트 오버레이 */}
-          <div
-            style={{
-              position: "absolute", //포지션이 있어야 inset이랑 zindex가 먹힘
-              inset: 0, 
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center", // 세로 중앙
-              alignItems: "center",     // 가로 중앙
-              zIndex: 2,
-              textAlign: "center",
-            }}
-          >
-            <div style={heroContent}>
-              <h1 style={heroTitle}>{img.title}</h1>
-              <p style={heroSubtitle}>{img.subtitle}</p>
-              <p style={{ color: "#fc9905ff", fontSize: "20px" }}>자세히 보기</p>
-            </div>
-          </div>
-        </div>
-      </Link>
-    ))}
-
-    {/* 하단 도트 */}
-    <div
-      style={{
-        position: "absolute",
-        bottom: "10px",
-        width: "100%",
-        textAlign: "center",
-        zIndex: 3,
-      }}
-    >
-      {images.map((_, i) => (
-        <span
-          key={i}
-          onClick={() => setIndex(i)}
-          style={{
-            cursor: "pointer",
-            margin: "0 5px",
-            fontSize: index === i ? "1.5rem" : "1rem",
-            color: index === i ? "green" : "white",
-            transition: "all 0.3s ease",
-          }}
-        >
-          ●
-        </span>
-      ))}
-    </div>
-  </div>
+      <MainHeader images={images} />
       {/* 기능 소개 섹션 */}
       <div style={featureSection}>
         <h2 style={{ textAlign: "center", marginBottom: "40px" }}>
@@ -187,12 +111,13 @@ export default function HomePage() {
               <span style={moreBtn}>더보기</span>
             </div>
             <ul style={list}>
-              {notices.map((n, i) => (
-                <li key={i} style={listItem}>
-                  <span>{n.title}</span>
-                  <span style={dateStyle}>{n.date}</span>
-                </li>
-              ))}
+              {notices &&
+                notices.map((n, i) => (
+                  <li key={i} style={listItem}>
+                    <span>{n.title}</span>
+                    <span style={dateStyle}>{n.date}</span>
+                  </li>
+                ))}
             </ul>
           </div>
 
@@ -203,12 +128,13 @@ export default function HomePage() {
               <span style={moreBtn}>더보기</span>
             </div>
             <ul style={list}>
-              {events.map((e, i) => (
-                <li key={i} style={listItem}>
-                  <span>{e.title}</span>
-                  <span style={dateStyle}>{e.date}</span>
-                </li>
-              ))}
+              {events &&
+                events.map((e, i) => (
+                  <li key={i} style={listItem}>
+                    <span>{e.title}</span>
+                    <span style={dateStyle}>{e.date}</span>
+                  </li>
+                ))}
             </ul>
           </div>
         </div>
@@ -216,77 +142,6 @@ export default function HomePage() {
     </div>
   );
 }
-
-/* 스타일 정의 */
-// const heroSection: React.CSSProperties = {
-//   display: "flex",
-//   flexDirection: "column",
-//   justifyContent: "center",
-//   color: "#fff",
-//   padding: "auto",
-//   position: "relative",
-//   width: "100%",
-//   // height: "clamp(200px, 30svh, 900px)",
-//   height: "500px",
-//   overflow: "hidden",
-//   textAlign: "center",
-// };
-
-// const heroContent: React.CSSProperties = {
-//   position: "relative",
-//   zIndex: 2, // 오버레이 위로
-//   display: "flex",
-//   flexDirection: "column",
-//   // alignItems : "center",
-//   // justifyContent : "center",
-//   gap: "5px", // 제목/문단 간격
-// };
-
-// const heroTitle: React.CSSProperties = {
-//   fontSize: "clamp(24px, 6vw, 48px)",
-//   marginBottom: "20px",
-//   fontWeight: "bold",
-// };
-
-// const heroSubtitle: React.CSSProperties = {
-//   fontSize: "clamp(14px, 2.8vw, 20px)",
-//   lineHeight: "1.6",
-// };
-
-const heroSection: React.CSSProperties = {
-  position: "relative",
-  width: "100%",
-  height: "500px",
-  overflow: "hidden",
-  color: "#fff",
-};
-
-const heroContent: React.CSSProperties = {
-  display: "flex",
-  flexDirection: "column",
-  gap: "5px",
-};
-
-const heroTitle: React.CSSProperties = {
-  fontSize: "clamp(24px, 6vw, 48px)",
-  marginBottom: "20px",
-  fontWeight: "bold",
-};
-
-const heroSubtitle: React.CSSProperties = {
-  fontSize: "clamp(14px, 2.8vw, 20px)",
-  lineHeight: "1.6",
-};
-const mainButton: React.CSSProperties = {
-  padding: "12px 24px",
-  margin: "0 10px",
-  backgroundColor: "#4caf50",
-  color: "#fff",
-  border: "none",
-  borderRadius: "6px",
-  cursor: "pointer",
-  fontSize: "1rem",
-};
 
 const featureSection: React.CSSProperties = {
   padding: "60px 20px",
@@ -300,15 +155,6 @@ const featureGrid: React.CSSProperties = {
   maxWidth: "1000px",
   margin: "0 auto",
 };
-
-// const featureCard: React.CSSProperties = {
-//   backgroundColor: "#fff",
-//   padding: "30px 20px",
-//   borderRadius: "8px",
-//   boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
-//   textAlign: "center",
-// };
-
 const subButton: React.CSSProperties = {
   marginTop: "15px",
   padding: "8px 16px",
@@ -373,34 +219,3 @@ const dateStyle: React.CSSProperties = {
   fontSize: "13px",
   whiteSpace: "nowrap",
 };
-
-const notices = [
-  {
-    title: "비대면 계정공 및 외부주치의 본문 수수료 인하 안내",
-    date: "2025.03.06",
-  },
-  { title: "계정 공통 수수료 인상 안내 (25.2.1 적용)", date: "2025.03.01" },
-  { title: "모바일 건강검진 QR 운영 안내 (24.1.1 시행)", date: "2025.02.07" },
-  { title: "삼성서울병원 마이크로칩 도입 변경 안내", date: "2025.03.13" },
-  { title: "삼성서울병원 개인정보처리방침 개정 공지", date: "2025.07.01" },
-];
-
-const events = [
-  {
-    title: "[2025 SPC Webinar 09] 헬리코박터 최신지견 (Update 2025)",
-    date: "2025.08.25",
-  },
-  {
-    title: "[2025 SPC Webinar 08] 위식도역류질환 최신 진단",
-    date: "2025.07.29",
-  },
-  {
-    title: "2025년 제11회 삼성서울병원 아이엔공공포럼 심포지엄",
-    date: "2025.07.17",
-  },
-  {
-    title: "2025년 계기의 삼성서울병원 공학과 융합 심포지엄",
-    date: "2025.07.11",
-  },
-  { title: "제8회 삼성서울병원 외과 심포지엄", date: "2025.07.01" },
-];

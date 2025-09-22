@@ -22,7 +22,21 @@
   "tailwindCSS.validate": true,
 
   // v4는 CSS 엔트리포인트를 전역 경로로 지정
-  "tailwindCSS.config": "D:/Source/reservationFront/tailwind.config.js"
+  "tailwindCSS.config": "D:/Source/reservationFront/tailwind.config.js",
+
+  "[typescript]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+},
+"[typescriptreact]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+},
+"[javascript]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+},
+"[javascriptreact]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+},
+"editor.formatOnSave": true
 
 
 }
