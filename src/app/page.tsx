@@ -5,35 +5,30 @@ import { useState, useEffect } from "react";
 import "./globals.css";
 import Image from "next/image";
 import Link from "next/link";
-const images = [
-  {
-    src: "/hospital.png",
-    alt: "병원 이미지 1",
-    position: "40% 40%",
-    title: "의료 AI 분석 서비스",
-    subtitle: "AI를 활용하여 의료 영상을 분석하고, 손쉽게 진료 예약 관리",
-    link: "/explain/page1",
-  },
-  {
-    src: "/hospital2.png",
-    alt: "병원 이미지 2",
-    position: "40% 33%",
-    title: "환자를 먼저 생각하는 진료",
-    subtitle: "따뜻한 의료 서비스",
-    link: "/explain/page2",
-  },
-  {
-    src: "/hospital3.png",
-    alt: "병원 이미지 3",
-    position: "40% 35%",
-    title: "신뢰할 수 있는 의료 서비스",
-    subtitle: "편리한 예약과 빠른 진료",
-    link: "/explain/page3",
-  },
-];
+import axios from "axios";
+import { axiosGet } from "@/utils/axiosGet";
+
+
+interface imgData {
+  src: string;
+  alt : string;
+  position: string;
+  title: string;
+  subtitle : string;
+  link : string;
+}
+
 export default function HomePage() {
   const router = useRouter();
   const [index, setIndex] = useState(0);
+  const [images, setImages] = useState<imgData[]>([]);
+  useEffect(() => {
+    const axiosData = async() => {
+      const res = await axiosGet<imgData[]>(`/datas/mainImgData.json`);
+      setImages(res);
+    }
+    axiosData();
+  },[]);
 
   useEffect(() => {
     const els = document.querySelectorAll<HTMLElement>(".featureCard");

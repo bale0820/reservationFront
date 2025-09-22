@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import ProtectedRoute from "../components/ProtectedRoute";
-import axios from "axios";
 
 interface ApiResponse<T> {
   success: boolean;
