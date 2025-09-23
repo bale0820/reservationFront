@@ -1,59 +1,11 @@
-"use client";
-
-import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
-import "./globals.css";
-import Image from "next/image";
-import Link from "next/link";
-import { axiosGet } from "@/utils/axiosGet";
-import { createObserver } from "@/hooks/createObserver";
-import { useAutoSlider } from "@/hooks/useAutoSlider";
-import { imgData } from "@/types/imgData";
 import { notices } from "@/types/notices";
 import { events } from "@/types/events";
-import { MainHeader } from "@/components/MainHeader";
-import { Main } from "@/components/Main";
 
-export default function HomePage() {
-  const router = useRouter();
-  // const [index, setIndex] = useState(0);
-  const [images, setImages] = useState<imgData[]>([]);
-  // const { index, setIndex } = useAutoSlider(images.length, 5000);
-  const [notices, setNotices] = useState<notices[]>([]);
-  const [events, setEvents] = useState<events[]>([]);
+export function Bottom({events ,notices} : {events : events[], notices : notices[]}) {
 
-  //메인 이미지 불러오기
-  useEffect(() => {
-    const axiosData = async () => {
-      const res = await axiosGet<imgData[]>(`/datas/mainImgData.json`);
-      setImages(res);
-    };
-    const axiosData2 = async () => {
-      const res = await axiosGet<notices[]>(`/datas/notices.json`);
-      setNotices(res);
-    };
-    const axiosData3 = async () => {
-      const res = await axiosGet<events[]>(`/datas/events.json`);
-      setEvents(res);
-    };
-    axiosData();
-    axiosData2();
-    axiosData3();
-  }, []);
 
-  //첫화면 등장시 애니메이션 동작 구현
-  useEffect(() => {
-    const observer = createObserver(".featureCard", "show", {
-      threshold: 0.1,
-    });
-    return () => observer.disconnect();
-  }, []);
 
-  return (
-    <div style={{ fontFamily: "Arial, sans-serif" }}>
-      <MainHeader images={images} />
-      <Main />
-        <div style={container}>
+    return(<div style={container}>
           {/* 공지사항 */}
           <div style={box}>
             <div style={header}>
@@ -88,32 +40,9 @@ export default function HomePage() {
             </ul>
           </div>
         </div>
-       </div>
-    // </div>
-  );
+    );
 }
 
-const featureSection: React.CSSProperties = {
-  padding: "60px 20px",
-  backgroundColor: "#f9f9f9",
-};
-
-const featureGrid: React.CSSProperties = {
-  display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-  gap: "20px",
-  maxWidth: "1000px",
-  margin: "0 auto",
-};
-const subButton: React.CSSProperties = {
-  marginTop: "15px",
-  padding: "8px 16px",
-  backgroundColor: "#4caf50",
-  color: "#fff",
-  border: "none",
-  borderRadius: "4px",
-  cursor: "pointer",
-};
 
 const container: React.CSSProperties = {
   display: "grid",
