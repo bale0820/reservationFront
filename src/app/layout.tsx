@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "../styles/globals.css";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 
@@ -15,11 +15,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body style={{ display: 'flex', flexDirection: 'column'}}>
+      <body style={{ display: "flex", flexDirection: "column" }}>
         <div className="container">
-        <NavBar />
-        <main style={{ flex: 1 }}>{children}</main>
-        <Footer />
+          <NavBar />
+          <main style={{ flex: 1 }}>{children}</main>
+          <Footer />
         </div>
       </body>
     </html>

@@ -2,6 +2,8 @@ import { useAutoSlider } from "@/hooks/useAutoSlider";
 import { imgData } from "@/types/imgData";
 import Image from "next/image";
 import Link from "next/link";
+import { MdOutlineArrowBackIosNew } from "react-icons/md";
+import { MdOutlineArrowForwardIos } from "react-icons/md";
 
 export function MainHeader({ images }: { images: imgData[] }) {
   const { index, setIndex } = useAutoSlider(images.length, 5000);
@@ -40,7 +42,22 @@ export function MainHeader({ images }: { images: imgData[] }) {
           </div>
         </Link>
       ))}
-
+      <span
+        className="absolute top-1/2  right-0 text-3xl  z-30 text-green-600 "
+        onClick={() => setIndex((index + 1) % images.length)}
+      >
+        <MdOutlineArrowForwardIos />
+      </span>
+      <span
+        className="absolute top-1/2  left-0 text-3xl  z-30  text-green-600 "
+        onClick={() =>
+          setIndex(
+            index === 0 ? images.length - 1 : (index - 1) % images.length
+          )
+        }
+      >
+        <MdOutlineArrowBackIosNew />
+      </span>
       {/* 하단 도트 */}
       <div className="absolute bottom-2 w-full text-center z-30">
         {images.map((_, i) => (

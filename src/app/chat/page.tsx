@@ -3,14 +3,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import ProtectedRoute from "../components/ProtectedRoute";
-
-interface AiQuestion {
-  id: number;
-  userEmail: string;
-  question: string;
-  answer: string;
-  createdAt: string;
-}
+import { axiosGet } from "@/utils/axiosGet";
+import { AiQuestion } from "@/types";
 
 export default function ChatPage() {
   const [question, setQuestion] = useState("");
@@ -20,15 +14,29 @@ export default function ChatPage() {
 
   const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8080";
 
+  // // ✅ 대화 내역 불러오기
+  // const fetchHistory = async () => {
+  //   const token = localStorage.getItem("token");
+  //   if (!token) return;
+  //   try {
+  //     const res = await axios.get<AiQuestion[]>(`${API_BASE}/api/gpt/history`, {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     });
+  //     setHistory(res.data);
+  //   } catch (err) {
+  //     console.error("히스토리 불러오기 실패", err);
+  //   }
+  // };
+
   // ✅ 대화 내역 불러오기
   const fetchHistory = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) return;
     try {
-      const res = await axios.get<AiQuestion[]>(`${API_BASE}/api/gpt/history`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setHistory(res.data);
+      const res = await axiosGet<AiQuestion[]>(`/api/gpt/history`);
+      if (res) {
+        setHistory(res);
+      } else {
+        return;
+      }
     } catch (err) {
       console.error("히스토리 불러오기 실패", err);
     }
@@ -49,9 +57,10 @@ export default function ChatPage() {
         params: { q: question },
         headers: { Authorization: `Bearer ${token}` },
       });
+
       setAnswer(res.data as string);
       setQuestion(""); // 입력창 초기화
-      fetchHistory();  // 새로고침
+      fetchHistory(); // 새로고침
     } catch (err) {
       setAnswer("❌ GPT 호출 실패");
     } finally {
