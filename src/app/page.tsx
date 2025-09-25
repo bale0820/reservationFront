@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { axiosGet1 } from "@/utils/axiosGet";
-import { createObserver } from "@/hooks/createObserver";
+import { createObserver } from "@/utils/createObserver";
 import { imgData } from "@/types/imgData";
 import { notices } from "@/types/notices";
 import { events } from "@/types/events";
