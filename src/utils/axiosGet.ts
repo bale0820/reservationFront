@@ -11,12 +11,16 @@ export const axiosGet1 = async <T>(url: string): Promise<T> => {
   return res.data;
 };
 
-export const axiosGet = async <T>(url: string): Promise<T | undefined> => {
+export const axiosGet = async <T>(
+  url: string,
+  question?: string
+): Promise<T | undefined> => {
   const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8080";
   const token = localStorage.getItem("token");
   if (!token) return;
 
   const res = await axios.get<T>(`${API_BASE}${url}`, {
+    params: { q: question },
     headers: { Authorization: `Bearer ${token}` },
   });
   return res.data;
