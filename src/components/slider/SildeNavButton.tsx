@@ -3,11 +3,11 @@ import { ReactNode } from "react";
 export function SlideNavButton({
     position,
     onClick,
-    children,
+    icon
 }: {
     position: "left" | "right";
     onClick: () => void;
-    children: ReactNode;
+    icon: ReactNode
 }) {
     return (
         <span
@@ -15,7 +15,7 @@ export function SlideNavButton({
                 } text-3xl z-30 text-green-600 cursor-pointer`}
             onClick={onClick}
         >
-            {children}
+            {icon}
         </span>
     );
 }
