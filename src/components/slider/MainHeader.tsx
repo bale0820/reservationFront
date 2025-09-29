@@ -4,74 +4,59 @@ import Image from "next/image";
 import Link from "next/link";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
 import { MdOutlineArrowForwardIos } from "react-icons/md";
+import { Slide } from "./Silde";
+import { SlideNavButton } from "./SildeNavButton";
+import { SlideDots } from "./SlideDots";
 
 export function MainHeader({ images }: { images: imgData[] }) {
   const { index, setIndex } = useAutoSlider(images.length, 5000);
-
+  const ins = <MdOutlineArrowForwardIos />;
   return (
     <div className="relative w-full h-[500px] overflow-hidden text-white">
       {images.map((img, i) => (
-        <Link key={i} href={img.link}>
-          <div
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              index === i ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <Image
-              src={img.src}
-              alt={img.alt}
-              fill
-              className="object-cover"
-              style={{ objectPosition: img.position }}
-              priority={index === i}
-              quality={100}
-            />
+        // <Link key={i} href={img.link}>
+        //   <div
+        //     className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === i ? "opacity-100" : "opacity-0"
+        //       }`}
+        //   >
+        //     <Image
+        //       src={img.src}
+        //       alt={img.alt}
+        //       fill
+        //       className="object-cover"
+        //       style={{ objectPosition: img.position }}
+        //       priority={index === i}
+        //       quality={100}
+        //     />
 
-            {/* 텍스트 오버레이 */}
-            <div className="absolute inset-0 flex flex-col justify-center items-center z-20 text-center">
-              <div className="flex flex-col gap-2">
-                <h1 className="font-bold mb-5 text-[clamp(24px,6vw,48px)]">
-                  {img.title}
-                </h1>
-                <p className="leading-relaxed text-[clamp(14px,2.8vw,20px)]">
-                  {img.subtitle}
-                </p>
-                <p className="text-[#fc9905] text-lg">자세히 보기</p>
-              </div>
-            </div>
-          </div>
-        </Link>
+        //     {/* 텍스트 오버레이 */}
+        //     <div className="absolute inset-0 flex flex-col justify-center items-center z-20 text-center">
+        //       <div className="flex flex-col gap-2">
+        //         <h1 className="font-bold mb-5 text-[clamp(24px,6vw,48px)]">
+        //           {img.title}
+        //         </h1>
+        //         <p className="leading-relaxed text-[clamp(14px,2.8vw,20px)]">
+        //           {img.subtitle}
+        //         </p>
+        //         <p className="text-[#fc9905] text-lg">자세히 보기</p>
+        //       </div>
+        //     </div>
+        //   </div>
+        // </Link>
+        <Slide key={i} img={img} isActive={index === i} />
       ))}
-      <span
-        className="absolute top-1/2  right-0 text-3xl  z-30 text-green-600 "
-        onClick={() => setIndex((index + 1) % images.length)}
-      >
+      <SlideNavButton position="right" onClick={() => setIndex((index + 1) % images.length)}>
         <MdOutlineArrowForwardIos />
-      </span>
-      <span
-        className="absolute top-1/2  left-0 text-3xl  z-30  text-green-600 "
-        onClick={() =>
-          setIndex(
-            index === 0 ? images.length - 1 : (index - 1) % images.length
-          )
-        }
+      </SlideNavButton>
+
+      <SlideNavButton
+        position="left"
+        onClick={() => setIndex(index === 0 ? images.length - 1 : index - 1)}
       >
         <MdOutlineArrowBackIosNew />
-      </span>
-      {/* 하단 도트 */}
-      <div className="absolute bottom-2 w-full text-center z-30">
-        {images.map((_, i) => (
-          <span
-            key={i}
-            onClick={() => setIndex(i)}
-            className={`cursor-pointer mx-1 transition-all ${
-              index === i ? "text-green-500 text-2xl" : "text-white text-base"
-            }`}
-          >
-            ●
-          </span>
-        ))}
-      </div>
+      </SlideNavButton>
+
+      <SlideDots count={images.length} activeIndex={index} setIndex={setIndex} shape={ins} />
     </div>
   );
 }

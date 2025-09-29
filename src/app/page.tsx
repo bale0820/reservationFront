@@ -7,7 +7,7 @@ import { createObserver } from "@/utils/createObserver";
 import { imgData } from "@/types/imgData";
 import { notices } from "@/types/notices";
 import { events } from "@/types/events";
-import { MainHeader } from "@/components/MainHeader";
+import { MainHeader } from "@/components/slider/MainHeader";
 import { Main } from "@/components/Main";
 import { Bottom } from "@/components/Bottom";
 
