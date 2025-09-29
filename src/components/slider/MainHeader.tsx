@@ -56,7 +56,7 @@ export function MainHeader({ images }: { images: imgData[] }) {
         <MdOutlineArrowBackIosNew />
       </SlideNavButton>
 
-      <SlideDots count={images.length} activeIndex={index} setIndex={setIndex} shape={ins} />
+      <SlideDots count={images.length} activeIndex={index} setIndex={setIndex} shape={MdOutlineArrowForwardIos} />
     </div>
   );
 }
