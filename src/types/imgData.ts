@@ -1,4 +1,4 @@
-export interface imgData {
+export interface ImgData {
   src: string;
   alt: string;
   position: string;

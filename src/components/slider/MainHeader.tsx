@@ -1,5 +1,5 @@
 import { useAutoSlider } from "@/hooks/useAutoSlider";
-import { imgData } from "@/types/imgData";
+import { ImgData } from "@/types/ImgData";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import { IoIosRadioButtonOn } from "react-icons/io";
@@ -7,7 +7,7 @@ import { Slide } from "./Silde";
 import { SlideNavButton } from "./SildeNavButton";
 import { SlideDots } from "./SlideDots";
 
-export function MainHeader({ images }: { images: imgData[] }) {
+export function MainHeader({ images }: { images: ImgData[] }) {
   const { index, setIndex } = useAutoSlider(images.length, 5000);
   return (
     <div className="relative w-full h-[500px] overflow-hidden text-white">

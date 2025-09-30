@@ -1,4 +1,4 @@
-export interface notices {
+export interface Notice {
   title: string;
   date: string;
 }
