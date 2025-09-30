@@ -1,5 +1,5 @@
 import { useAutoSlider } from "@/hooks/useAutoSlider";
-import { ImgData } from "@/types/ImgData";
+import { ImgData } from "@/types";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import { IoIosRadioButtonOn } from "react-icons/io";

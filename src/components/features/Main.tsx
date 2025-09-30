@@ -80,8 +80,16 @@
 // components/Main.tsx
 import { features } from "@/components/features/feature";
 import { FeatureCard } from "./FeatureCard";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import {  axiosGet1 } from "@/utils/axiosGet";
 
 export function Main() {
+  const [features, setFeatures] = useState([]);
+
+
+  },[]);
+
   return (
     <div className="py-16 px-5 bg-[#f9f9f9]">
       <h2 className="text-center mb-10 font-bold text-2xl">서비스 주요 기능</h2>
