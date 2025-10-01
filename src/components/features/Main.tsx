@@ -82,13 +82,9 @@ import { features } from "@/components/features/feature";
 import { FeatureCard } from "./FeatureCard";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import {  axiosGet1 } from "@/utils/axiosGet";
+import { axiosGet1 } from "@/utils/axiosGet";
 
 export function Main() {
-  const [features, setFeatures] = useState([]);
-
-
-  },[]);
 
   return (
     <div className="py-16 px-5 bg-[#f9f9f9]">

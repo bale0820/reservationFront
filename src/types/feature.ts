@@ -1,8 +1,8 @@
 // types/feature.ts
-export type Feature = {
+export interface Feature {
   id: number;
   title: string;
   description: string;
   buttonText: string;
   path: string;
-};
+}
