@@ -55,7 +55,7 @@ export default function Step2RegisterPage() {
       if (window.recaptchaVerifier) {
         try {
           window.recaptchaVerifier.clear();
-        } catch {}
+        } catch { }
         delete window.recaptchaVerifier;
       }
       import("firebase/app").then(({ getApp }) => {
@@ -102,7 +102,7 @@ export default function Step2RegisterPage() {
       if (window.recaptchaVerifier) {
         try {
           window.recaptchaVerifier.clear();
-        } catch {}
+        } catch { }
         delete window.recaptchaVerifier;
       }
     };
@@ -133,6 +133,8 @@ export default function Step2RegisterPage() {
   ) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
+    console.log("form은", form);
+
   };
 
   const handleChangeUserId = async (
@@ -279,15 +281,27 @@ export default function Step2RegisterPage() {
         return;
       }
 
+      // ✅ 이메일 합치기
+      const fullEmail = `${form.email}@${form.emailDomain}`;
+
+      // ✅ 서버 전송용 데이터 만들기
+      const sendData = {
+        ...form,
+        email: fullEmail, // 기존 email 필드를 덮어쓰기
+      };
+
       const API_BASE =
         process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8080";
       const res = await axios.post<ApiResponse<string>>(
         `${API_BASE}/api/register`,
-        form
+        sendData
       );
-      if (res.data.success)
+
+      if (res.data.success) {
         setMessage("회원가입 성공! 로그인 페이지로 이동합니다.");
-      else setMessage("회원가입 실패.");
+        console.log("form은 ", form)
+      }
+      else setMessage("회원가입 실패.");;
       setTimeout(() => router.push("/login"), 1500);
     } catch (err: unknown) {
       if (err instanceof Error) {

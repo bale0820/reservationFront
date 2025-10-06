@@ -14,7 +14,7 @@ interface Reservation {
   name: string;
   date: string;
   time: string;
-  userEmail : string;
+  userEmail: string;
 }
 
 export default function MyReservationsPage() {
@@ -35,7 +35,7 @@ export default function MyReservationsPage() {
       const res = await axios.get<Reservation[]>(`${API_BASE}/api/reservations/my`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log("API 요청 시작:", `${API_BASE}/api/reservations/my`) 
+      console.log("API 요청 시작:", `${API_BASE}/api/reservations/my`)
       console.log("응답 데이터:", res.data)
       setReservations(res.data);
     } catch (error) {
@@ -58,7 +58,7 @@ export default function MyReservationsPage() {
       const res = await axios.delete<ApiResponse<void>>(`${API_BASE}/api/reservations/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const {success, message, data} = res.data
+      const { success, message, data } = res.data
 
       setMessage(message);
       alert("예약이 취소되었습니다");
@@ -101,11 +101,11 @@ export default function MyReservationsPage() {
     <ProtectedRoute>
       <div style={{ maxWidth: 1200, margin: '40px auto', padding: '20px' }}>
         <h2 style={{ marginBottom: '20px', textAlign: 'center' }}>내 예약 목록</h2>
-        {message && <p style={{ color: 'red', textAlign: 'center'  }}>{message}</p>}
+        {message && <p style={{ color: 'red', textAlign: 'center' }}>{message}</p>}
         {reservations.length == 0 ? (
           <p style={{ textAlign: 'center' }}>예약 내역이 없습니다.</p>
         ) : (
-         <div style={cardGrid}>
+          <div style={cardGrid}>
             {reservations.map((r) => (
               <div key={r.id} style={cardStyle}>
                 <h3>{r.name}님의 예약</h3>
