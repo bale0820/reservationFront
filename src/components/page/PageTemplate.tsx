@@ -9,7 +9,6 @@ export function PageTemplate({ hero, image, sectionTitle, paragraphs, features, 
         <main style={{ fontFamily: "Arial, sans-serif", background: "#f9fafb", minHeight: "100vh" }}>
             {/* Hero */}
             <HeroSection {...hero} />
-
             {/* Content */}
             <section style={{
                 maxWidth: "1200px", margin: "0 auto", padding: "64px 24px",

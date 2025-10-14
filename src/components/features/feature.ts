@@ -44,4 +44,11 @@ export const features: Feature[] = [
     buttonText: "알아보기",
     path: "/chat",
   },
+  {
+    id: 7,
+    title: "5. 이미지업로드",
+    description: "이미지업로드",
+    buttonText: "업로드하기",
+    path: "/uploadImage",
+  },
 ];

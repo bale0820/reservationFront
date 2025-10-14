@@ -291,7 +291,7 @@ export default function Step2RegisterPage() {
       };
 
       const API_BASE =
-        process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8080";
+        process.env.NEXT_PUBLIC_API_BASE;
       const res = await axios.post<ApiResponse<string>>(
         `${API_BASE}/api/register`,
         sendData

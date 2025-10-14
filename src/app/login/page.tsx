@@ -20,8 +20,10 @@ export default function LoginPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const API_BASE =
+      process.env.NEXT_PUBLIC_API_BASE;
     try {
-      const res = await axios.post<ApiResponse<string>>("http://localhost:8080/api/login", {
+      const res = await axios.post<ApiResponse<string>>(`${API_BASE}/api/login`, {
         userId,
         password
       })

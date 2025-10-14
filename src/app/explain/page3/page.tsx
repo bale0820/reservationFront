@@ -59,7 +59,6 @@ export default function Page3() {
     borderRadius: "12px",
     boxShadow: "0 2px 4px rgba(0,0,0,0.05)",
   };
-
   const cardTitle: React.CSSProperties = {
     fontWeight: "600",
     color: "#16a34a",
