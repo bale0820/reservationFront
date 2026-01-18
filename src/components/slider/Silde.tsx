@@ -1,8 +1,8 @@
+import { ImgData } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
-import { imgData } from "@/types/imgData";
 
-export function Slide({ img, isActive }: { img: imgData; isActive: boolean }) {
+export function Slide({ img, isActive }: { img: ImgData; isActive: boolean }) {
     return (
         <Link href={img.link}>
             <div
