@@ -31,6 +31,6 @@ const footerStyle: React.CSSProperties = {
 };
 
 const footerContent: React.CSSProperties = {
-  maxWidth: "1200px",
+  maxWidth: "100%",
   margin: "0 auto",
 };

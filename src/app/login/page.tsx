@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "@/shared/constants/clientEnv";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -20,10 +21,10 @@ export default function LoginPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const API_BASE =
-      process.env.NEXT_PUBLIC_API_BASE;
+    // const API_BASE =
+    //   process.env.NEXT_PUBLIC_API_BASE;
     try {
-      const res = await axios.post<ApiResponse<string>>(`${API_BASE}/api/login`, {
+      const res = await axios.post<ApiResponse<string>>(`${API_BASE_URL}/api/login`, {
         userId,
         password
       })
@@ -49,8 +50,8 @@ export default function LoginPage() {
     }
   }
 
-  const handleNaverLogin = () => {
-    window.location.href = "http://localhost:8080/oauth2/authorization/naver";
+  const handleKakaoLogin = () => {
+    window.location.href = `${API_BASE_URL}/oauth2/authorization/kakao`;
     alert("로그인 성공!");
     router.push("/");
   };
@@ -83,18 +84,18 @@ export default function LoginPage() {
       </form>
       <div style={{ display: "flex", justifyContent: "center", marginTop: "50px" }}>
         <button
-          onClick={handleNaverLogin}
+          onClick={handleKakaoLogin}
           style={{
             padding: "12px 24px",
-            backgroundColor: "#03C75A",
-            color: "white",
+            backgroundColor: "#f5f107",
+            color: "black",
             borderRadius: "8px",
             border: "none",
             cursor: "pointer",
             fontSize: "16px"
           }}
         >
-          네이버 로그인
+          카카오 로그인
         </button>
       </div>
       {error && <p style={{ color: 'red' }}>{error}</p>}

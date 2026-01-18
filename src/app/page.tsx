@@ -47,7 +47,7 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div style={{ fontFamily: "Arial, sans-serif" }}>
+    <div style={{ fontFamily: "Arial, sans-serif" }} className="bg-black">
       <MainHeader images={images} />
       <Main />
       <Bottom events={events} notices={notices} />

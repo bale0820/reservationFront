@@ -8,6 +8,7 @@ import { auth } from "../../firebase";
 import { ConfirmationResult } from "firebase/auth";
 import { useLayoutEffect } from "react";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import { API_BASE_URL } from "@/shared/constants/clientEnv";
 interface ApiResponse<T> {
   success: boolean;
   message: string;
@@ -62,17 +63,6 @@ export default function Step2RegisterPage() {
         console.log("Firebase options:", getApp().options);
       });
 
-      // // 새 verifier 생성
-      // window.recaptchaVerifier = new RecaptchaVerifier(
-      //   "recaptcha-container",
-      //   {
-      //     size: "normal",
-      //     callback: (response: string) => {
-      //       console.log("reCAPTCHA solved:", response);
-      //     },
-      //   },
-      //   auth
-      // );
 
       window.recaptchaVerifier = new RecaptchaVerifier(
         "recaptcha-container",
@@ -87,14 +77,6 @@ export default function Step2RegisterPage() {
         },
         auth
       );
-
-      // window.recaptchaVerifier.render();
-
-      // window.recaptchaVerifier.render()
-      //   .then((widgetId: number) => {
-      //     console.log("reCAPTCHA ready:", widgetId);
-      //   })
-      //   .catch(err => console.error("reCAPTCHA render error:", err));
     }
 
     // 페이지 떠날 때 클린업
@@ -108,20 +90,6 @@ export default function Step2RegisterPage() {
     };
   }, []);
 
-  // useEffect(() => {
-  //   if (typeof window !== "undefined" && !window.recaptchaVerifier) {
-  //     window.recaptchaVerifier = new RecaptchaVerifier(
-  //       auth,
-  //       "recaptcha-container",
-  //       {
-  //         size: "normal",
-  //         callback: (response: string) => {
-  //           console.log("reCAPTCHA solved:", response);
-  //         },
-  //       }
-  //     );
-  //   }
-  // }, []);
 
   const countSpecialChars = (str: string) => {
     const match = str.match(/[^a-zA-Z0-9]/g);
@@ -162,21 +130,7 @@ export default function Step2RegisterPage() {
     }
   };
 
-  // const setupRecaptcha = () => {
-  //   if (!window.recaptchaVerifier) {
-  //     window.recaptchaVerifier = new RecaptchaVerifier(
-  //       auth,
-  //       "recaptcha-container",
-  //       {
-  //         size: "normal",
-  //         callback: (response: string) => {
-  //           console.log("reCAPTCHA solved");
-  //         },
-  //       }
-  //     );
-  //      window.recaptchaVerifier.render(); // ✅ 실제 DOM에 마운트
-  //   }
-  // };
+
 
   // 📌 인증번호 확인
   const verifyCode = async () => {
@@ -210,30 +164,6 @@ export default function Step2RegisterPage() {
     }
   };
 
-  //   const sendCode = async () => {
-  //   try {
-  //     if (!window.recaptchaVerifier) {
-  //       alert("reCAPTCHA 초기화 안됨");
-  //       return;
-  //     }
-
-  //     // reCAPTCHA 매번 새로고침
-  //     const widgetId = await window.recaptchaVerifier.render();
-  //     window.grecaptcha.reset(widgetId);
-
-  //     const result = await signInWithPhoneNumber(
-  //       auth,
-  //       "+82" + form.phone.slice(1),
-  //       window.recaptchaVerifier
-  //     );
-
-  //     setConfirmationResult(result);
-  //     alert("인증번호가 전송되었습니다!");
-  //   } catch (error) {
-  //     console.error(error);
-  //     alert("인증번호 전송 실패: " + (error as Error).message);
-  //   }
-  // };
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -291,7 +221,7 @@ export default function Step2RegisterPage() {
       };
 
       const API_BASE =
-        process.env.NEXT_PUBLIC_API_BASE;
+        API_BASE_URL;
       const res = await axios.post<ApiResponse<string>>(
         `${API_BASE}/api/register`,
         sendData
@@ -497,12 +427,12 @@ const pageWrapper: React.CSSProperties = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  backgroundColor: "#f9fafb",
+  background: "#000000",
 };
 
 const headerStyle: React.CSSProperties = {
   width: "100%",
-  background: "#6cc20bff",
+
   color: "white",
   textAlign: "center",
   padding: "16px",
@@ -557,7 +487,7 @@ const prevBtn: React.CSSProperties = {
   borderRadius: "4px",
   fontSize: "14px",
   cursor: "pointer",
-  background: "#6cc20bff",
+  background: "#000000",
 };
 
 const nextBtn: React.CSSProperties = {
@@ -566,7 +496,7 @@ const nextBtn: React.CSSProperties = {
   fontSize: "14px",
   cursor: "pointer",
   border: "none",
-  background: "#6cc20bff",
+  background: "#000000",
   color: "white",
 };
 

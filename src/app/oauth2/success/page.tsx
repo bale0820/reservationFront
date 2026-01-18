@@ -11,22 +11,12 @@ export default function OAuth2SuccessPage() {
   // const searchParams = useSearchParams();
   // const token = searchParams.get("token");
   const params = new URLSearchParams(window.location.search);
-    const token = params.get("token");
-    const hasPhone = params.get("hasPhone") === "true";
-    const router = useRouter();
-
-  // useEffect(() => {
-  //   if (token) {
-  //     // ✅ 토큰을 localStorage 에 저장
-  //     localStorage.setItem("token", token);
-
-  //     // ✅ 이후 원하는 페이지로 이동 (예: 홈)
-  //     window.location.href = "/";
-  //   }
-  // }, [token]);
-
+  const token = params.get("token");
+  const hasPhone = params.get("hasPhone") === "true";
+  const router = useRouter();
+  console.log("hasPhone", hasPhone);
   useEffect(() => {
-    
+
 
     if (token) {
       localStorage.setItem("token", token);
@@ -38,7 +28,7 @@ export default function OAuth2SuccessPage() {
       } else {
         // 휴대폰 번호 없음 → 추가 입력 페이지
         // window.location.href = "/register/naverLogin";
-        router.push("/register/naverLogin");
+        router.push("/register/kakaoLogin");
       }
     }
   }, [token]);

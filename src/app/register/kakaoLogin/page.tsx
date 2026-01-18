@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { useRef } from "react";
 import axios from "axios";
 import { auth } from "../../firebase";
@@ -21,7 +21,7 @@ declare global {
   }
 }
 
-export default function NaverRegisterPage() {
+export default function KakaoRegisterPage() {
   const router = useRouter();
   // 입력값 상태
   const [phone, setPhone] = useState("");
@@ -30,12 +30,12 @@ export default function NaverRegisterPage() {
   // 각 필드 ref
 
   const phoneRef = useRef<HTMLInputElement>(null);
- 
 
-  const [confirmationResult, setConfirmationResult] =useState<ConfirmationResult | null>(null);
+
+  const [confirmationResult, setConfirmationResult] = useState<ConfirmationResult | null>(null);
   const [code, setCode] = useState("");
-   // ✅ 페이지 이동 감지
-   const [isVerified, setIsVerified] = useState(false);
+  // ✅ 페이지 이동 감지
+  const [isVerified, setIsVerified] = useState(false);
 
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
@@ -73,7 +73,7 @@ export default function NaverRegisterPage() {
       if (window.recaptchaVerifier) {
         try {
           window.recaptchaVerifier.clear();
-        } catch {}
+        } catch { }
         delete window.recaptchaVerifier;
       }
 
@@ -104,7 +104,7 @@ export default function NaverRegisterPage() {
       if (window.recaptchaVerifier) {
         try {
           window.recaptchaVerifier.clear();
-        } catch {}
+        } catch { }
         delete window.recaptchaVerifier;
       }
     };
@@ -161,8 +161,8 @@ export default function NaverRegisterPage() {
         process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8080";
       const res = await axios.post<ApiResponse<string>>(
         `${API_BASE}/api/registerNaver`,
-        {phone},
-         {
+        { phone },
+        {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -194,7 +194,7 @@ export default function NaverRegisterPage() {
             name="phone"
             value={phone}
             placeholder="휴대폰 번호 입력"
-            onChange={(e) => {    
+            onChange={(e) => {
               setPhone(e.target.value);
             }}
             // maxLength={11}
@@ -228,15 +228,15 @@ export default function NaverRegisterPage() {
             </>
           )}
         </div>
-        </form>
-    
+      </form>
 
-       
-        
 
-        
 
-        
+
+
+
+
+
 
       {message && (
         <p style={{ color: message.includes("성공") ? "green" : "red" }}>

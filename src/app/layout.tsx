@@ -15,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body style={{ display: "flex", flexDirection: "column" }}>
+      <body>
         <div className="container">
           <NavBar />
           <main style={{ flex: 1 }}>{children}</main>

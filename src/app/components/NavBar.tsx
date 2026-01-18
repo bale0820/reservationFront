@@ -97,7 +97,7 @@ export default function NavBar() {
       />
 
       {/* 왼쪽 드로어 */}
-      
+
       <aside
         className={`drawer ${open ? "show" : ""}`}
         role="dialog"
@@ -120,9 +120,8 @@ export default function NavBar() {
           <button className="drawer-item" onClick={() => go("/")}>홈</button>
           <button className="drawer-item" onClick={() => go("/upload")}>업로드</button>
           <button className="drawer-item" onClick={() => go("/results")}>결과</button>
-          <button className="drawer-item" onClick={() => go("/my-reservations")}>내 예약</button>
-          <button className="drawer-item" onClick={() => go("/chat")}>GPT 채팅</button>
-          <div className="text-lg text-gray-200"><a href="">안녕</a></div>
+          <button className="drawer-item" onClick={() => go("/my-reservations")}>환자 예약</button>
+          <button className="drawer-item" onClick={() => go("/chat")}>ai 조언</button>
           <hr style={{ border: 0, borderTop: "1px solid #eee", margin: "8px 0" }} />
           {isLoggedIn ? (
             <button className="drawer-item" onClick={handleLogout}>로그아웃</button>
@@ -144,7 +143,7 @@ const navStyle: React.CSSProperties = {
   alignItems: "center",
   gap: 12,
   padding: "10px 16px",
-  background: "#4caf50",
+  background: "black",
   color: "#fff",
   position: "sticky",
   top: 0,

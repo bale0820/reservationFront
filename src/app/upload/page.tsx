@@ -1,14 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import axios from "axios";
 import ProtectedRoute from "../components/ProtectedRoute";
+import { API_BASE_URL } from "@/shared/constants/clientEnv";
 
 interface ApiResponse<T> {
-    success : boolean
-    message: string
-    data : T
-  }
+  success: boolean
+  message: string
+  data: T
+}
 interface AnalysisResult {
   filename: string
   diagnosis: string
@@ -19,6 +20,12 @@ export default function UploadPage() {
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [message, setMessage] = useState<string>("");
   const [loading, setLoading] = useState(false);
+
+
+  const image = useMemo(() => {
+    if (!file) return null;
+    return URL.createObjectURL(file);
+  }, [file]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -46,7 +53,7 @@ export default function UploadPage() {
       formData.append("file", file, file.name);
 
       const API_BASE =
-        process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8080";
+        API_BASE_URL || "http://localhost:8080";
       const res = await axios.post<ApiResponse<AnalysisResult>>(
         `${API_BASE}/api/upload/analyze`,
         formData,
@@ -58,12 +65,13 @@ export default function UploadPage() {
         }
 
       );
-      const {success, message, data} = res.data
+      const { success, message, data } = res.data
       // const dataStr = res.data as string;
       // const jsonStr = dataStr.replace("AI 분석 결과: ", "");
       // const json = JSON.parse(jsonStr);
       setMessage(message)
       if (success) {
+        console.log("data", data);
         setResult(data)
         setMessage("분석이 완료되었습니다!");
       }
@@ -101,8 +109,8 @@ export default function UploadPage() {
                 color: loading
                   ? "#333"
                   : message.includes("완료")
-                  ? "green"
-                  : "red",
+                    ? "green"
+                    : "red",
               }}
             >
               {message}
@@ -110,8 +118,20 @@ export default function UploadPage() {
           )}
         </div>
 
+        {image && (
+          <div className="flex justify-center">
+            <div className="my-2.5 w-[200px] h-[200px] overflow-hidden rounded-lg border border-gray-300">
+              <img
+                src={image}
+                alt="미리보기"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        )}
+
         {result && (
-          <div style={{ ...cardStyle, marginTop: "30px" }}>
+          <div style={{ ...cardStyle }}>
             <h3>AI 분석 결과</h3>
             <p>
               <strong>파일명:</strong> {result.filename}

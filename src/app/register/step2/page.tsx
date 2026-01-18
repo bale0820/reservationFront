@@ -90,12 +90,11 @@ const pageWrapper: React.CSSProperties = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  backgroundColor: "#f9fafb",
+  backgroundColor: "black",
 };
 
 const headerStyle: React.CSSProperties = {
   width: "100%",
-  background: "#6cc20bff",
   color: "white",
   textAlign: "center",
   padding: "16px",

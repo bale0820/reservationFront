@@ -4,31 +4,24 @@ import { Feature } from "@/types/feature";
 export const features: Feature[] = [
   {
     id: 1,
-    title: "1. 의료 영상 업로드",
+    title: "1. 의료 영상 분석",
     description: "간단한 업로드만으로 AI 분석 시작",
-    buttonText: "업로드",
+    buttonText: "사진 분석 요청",
     path: "/upload",
   },
   {
     id: 2,
-    title: "2. 분석 결과 확인",
+    title: "2. 전체 환자 CT 조회",
     description: "정확도와 결과를 실시간으로 확인 가능",
     buttonText: "결과 확인",
     path: "/results",
   },
   {
     id: 3,
-    title: "3. 예약 관리",
-    description: "진료 예약 및 나의 예약 이력 관리",
-    buttonText: "내 예약",
-    path: "/my-reservations",
-  },
-  {
-    id: 4,
-    title: "3. 예약",
-    description: "진료 예약",
-    buttonText: "예약하기",
-    path: "/reserve",
+    title: "3. 전체 근무자 조회",
+    description: "근무자 전체  관리",
+    buttonText: "조회하기",
+    path: "/staffs",
   },
   {
     id: 5,
@@ -39,16 +32,9 @@ export const features: Feature[] = [
   },
   {
     id: 6,
-    title: "5. 건강검진 서비스",
-    description: "건강검진",
+    title: "5. 환자 상태 관리",
+    description: "환자 정보",
     buttonText: "알아보기",
-    path: "/chat",
-  },
-  {
-    id: 7,
-    title: "5. 이미지업로드",
-    description: "이미지업로드",
-    buttonText: "업로드하기",
-    path: "/uploadImage",
-  },
+    path: "/manage",
+  }
 ];

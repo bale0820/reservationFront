@@ -9,7 +9,7 @@ export function ChatHistory({ history }: { history: AiQuestion[] }) {
                 <p className="text-gray-500">아직 대화 기록이 없습니다.</p>
             ) : (
                 <ul className="space-y-5">
-                    {history.map((h) => (
+                    {history?.map((h) => (
                         <li
                             key={h.id}
                             className="p-4 border border-gray-300 rounded-md bg-white shadow-sm"

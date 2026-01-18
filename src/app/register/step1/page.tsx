@@ -13,14 +13,13 @@ export default function RegisterTypePage() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "flex-start",
-        backgroundColor: "#f3f4f6",
+        backgroundColor: "black",
       }}
     >
       {/* 상단 헤더 */}
       <div
         style={{
           width: "100%",
-          backgroundColor: "#6cc20bff",
           color: "white",
           padding: "16px",
           textAlign: "center",
@@ -69,8 +68,6 @@ export default function RegisterTypePage() {
               justifyContent: "space-between",
               alignItems: "center",
               cursor: "pointer",
-              backgroundColor: "#b2e776ff",
-              color : 'black'
             }}
           >
             <div>
@@ -92,8 +89,6 @@ export default function RegisterTypePage() {
               justifyContent: "space-between",
               alignItems: "center",
               cursor: "pointer",
-              backgroundColor: "#b2e776ff",
-              color : 'black'
             }}
           >
             <div>
