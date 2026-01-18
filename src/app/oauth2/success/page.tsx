@@ -33,29 +33,15 @@
 
 //   return <p>로그인 처리 중입니다...</p>;
 // }
-"use client";
+import { Suspense } from "react";
+import OAuthHandler from "./OAuthHandler";
 
-import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 export default function OAuth2SuccessPage() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-
-  const token = searchParams.get("token");
-  const hasPhone = searchParams.get("hasPhone") === "true";
-
-  useEffect(() => {
-    if (!token) return;
-
-    localStorage.setItem("token", token);
-
-    if (hasPhone) {
-      router.push("/");
-    } else {
-      router.push("/register/kakaoLogin");
-    }
-  }, [token, hasPhone, router]);
-
-  return <p>로그인 처리 중입니다...</p>;
+  return (
+    <Suspense fallback={<p>로그인 처리 중입니다...</p>}>
+      <OAuthHandler />
+    </Suspense>
+  );
 }
+
