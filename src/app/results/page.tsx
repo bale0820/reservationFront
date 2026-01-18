@@ -17,6 +17,7 @@ import DicomViewer from "@/components/dicom/DicomViewer";
 import { pacsMockData, Patient } from "@/mock/pacsData";
 import axios from "axios";
 import { API_BASE_URL, AWS_BASE_URL } from "@/shared/constants/clientEnv";
+import type { ReactNode } from "react";
 
 type SelectedImageInfo = {
   patientName: string;
@@ -139,7 +140,7 @@ export default function ResultPage() {
   );
 }
 
-function Info({ label, value }: { label: string; value: any }) {
+function Info({ label, value }: { label: string; value: ReactNode }) {
   return (
     <div className="flex justify-between gap-2">
       <span className="text-neutral-400">{label}</span>

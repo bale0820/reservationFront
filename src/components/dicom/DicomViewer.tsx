@@ -47,7 +47,7 @@ export default function DicomViewer({ dicomUrl }: Props) {
     const ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        let cornerstone: any;
+        let cornerstone: typeof import("cornerstone-core");
 
         const init = async () => {
             if (!ref.current) return;
@@ -60,16 +60,13 @@ export default function DicomViewer({ dicomUrl }: Props) {
                 cornerstone = cs.default ?? cs;
                 const cornerstoneWADOImageLoader = wado.default ?? wado;
 
-                // 🔑 필수 연결
                 cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
                 cornerstoneWADOImageLoader.external.dicomParser = dicomParser;
 
-                // 🔑 WebWorker 비활성화 (Next.js 필수)
                 cornerstoneWADOImageLoader.configure({
                     useWebWorkers: false,
                 });
 
-                // 🔑 wadouri 스킴 등록 (이거 없으면 무조건 에러)
                 cornerstone.registerImageLoader(
                     "wadouri",
                     cornerstoneWADOImageLoader.wadouri.loadImage
