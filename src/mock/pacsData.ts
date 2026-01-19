@@ -31,7 +31,7 @@ export const pacsMockData: Patient[] = [
         bodyPart: "Brain",
         series: Array.from({ length: 24 }).map((_, i) => ({
           imageId: i + 19,
-          dicomUrl: `https://medical-ai-yhj.s3.ap-northeast-2.amazonaws.com/image-${String(i + 19).padStart(5, "0")}.dcm`,
+          dicomUrl: `image-${String(i + 19).padStart(5, "0")}.dcm`,
         })),
       },
       {
@@ -40,7 +40,7 @@ export const pacsMockData: Patient[] = [
         bodyPart: "Chest",
         series: Array.from({ length: 18 }).map((_, i) => ({
           imageId: i + 1,
-          dicomUrl: `https://medical-ai-yhj.s3.ap-northeast-2.amazonaws.com/image-${String(i + 1).padStart(5, "0")}.dcm`,
+          dicomUrl: `image-${String(i + 1).padStart(5, "0")}.dcm`,
         })),
       },
     ],
@@ -56,7 +56,7 @@ export const pacsMockData: Patient[] = [
         bodyPart: "Lung",
         series: Array.from({ length: 12 }).map((_, i) => ({
           imageId: i + 44,
-          dicomUrl: `https://medical-ai-yhj.s3.ap-northeast-2.amazonaws.com/image-${String(i + 44).padStart(5, "0")}.dcm`,
+          dicomUrl: `image-${String(i + 44).padStart(5, "0")}.dcm`,
         })),
       },
     ],

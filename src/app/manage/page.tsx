@@ -1,5 +1,6 @@
 "use client"
 
+import { patientMockData } from "@/mock/patient.mock";
 import { API_BASE_URL } from "@/shared/constants/clientEnv";
 import { Patient } from "@/types/patient";
 import axios from "axios";
@@ -11,8 +12,9 @@ export default function ManagePatients() {
     const [patients, setPatients] = useState<Patient[]>([]);
     useEffect(() => {
         const fetchPatients = async () => {
-            const res = await axios.get<Patient[]>(`${API_BASE_URL}/api/users`);
-            setPatients(res.data);
+            // const res = await axios.get<Patient[]>(`${API_BASE_URL}/api/users`);
+            // setPatients(res.data);
+            setPatients(patientMockData);
         };
 
         fetchPatients();

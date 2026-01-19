@@ -1,5 +1,6 @@
 "use client"
 
+import { staffMockData } from "@/mock/staff.mock";
 import { API_BASE_URL } from "@/shared/constants/clientEnv";
 import { Staff } from "@/types/staff";
 import axios from "axios";
@@ -10,8 +11,9 @@ export default function ManageStaffs() {
     const [staffs, setStaffs] = useState<Staff[]>([]);
     useEffect(() => {
         const fetchStaffs = async () => {
-            const res = await axios.get<Staff[]>(`${API_BASE_URL}/api/staffs`);
-            setStaffs(res.data);
+            // const res = await axios.get<Staff[]>(`${API_BASE_URL}/api/staffs`);
+            // setStaffs(res.data);
+            setStaffs(staffMockData);
         };
 
         fetchStaffs();

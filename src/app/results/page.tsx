@@ -34,17 +34,16 @@ export default function ResultPage() {
   const [selectedImage, setSelectedImage] =
     useState<SelectedImageInfo | null>(null);
   const [search, setSearch] = useState("");
-  const [pacsData, setPacsData] = useState<Patient[] | []>([]);
+  // const [pacsData, setPacsData] = useState<Patient[] | []>([]);
 
 
 
-  useEffect(() => {
-    axios.get<Patient[]>(`${API_BASE_URL}/api/pacs`).then(res => {
-      setPacsData(res.data); // ✅ 기존 pacsMockData 제거 가능
-    });
-  }, []);
-  console.log("pacsData", pacsData);
-  const filteredPatients = pacsData?.filter(patient =>
+  // useEffect(() => {
+  //   axios.get<Patient[]>(`${API_BASE_URL}/api/pacs`).then(res => {
+  //     setPacsData(res.data); // ✅ 기존 pacsMockData 제거 가능
+  //   });
+  // }, []);
+  const filteredPatients = pacsMockData?.filter(patient =>
     patient.name.includes(search)
   );
 
