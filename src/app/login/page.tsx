@@ -18,18 +18,37 @@ export default function LoginPage() {
     data: T
   }
 
+  type LoginResponse = {
+    success: boolean;
+    message: string;
+    data: string;
+  };
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // const API_BASE =
     //   process.env.NEXT_PUBLIC_API_BASE;
     try {
-      const res = await axios.post<ApiResponse<string>>(`${API_BASE_URL}/api/login`, {
-        userId,
-        password
-      })
+      // const res = await axios.post<ApiResponse<string>>(`${API_BASE_URL}/api/login`, {
+      //   userId,
+      //   password
+      // })
+      let res: LoginResponse | undefined;
 
-      const { success, message, data } = res.data
+      if (userId === "test" && password === "1234") {
+        res = {
+          success: true,
+          message: "로그인 성공",
+          data: "로그인 성공",
+        };
+      }
+
+      if (!res) {
+        throw new Error("로그인 실패");
+      }
+
+      const { success, message, data } = res;
 
       if (success) {
         const token = data
